@@ -1,0 +1,10 @@
+{
+  "name": "Deadbolt",
+  "version": "0.0.1",
+  "authors": [
+    "Gideon Farrell <me@gideonfarrell.co.uk>"
+  ],
+  "main": "background.html",
+  "license": "MIT",
+  "private": true
+}
