@@ -4,10 +4,10 @@
     "description": "Easy and secure access management for online services.",
     "version": "0.0.1",
     "icons": {
-        "128": "dist/lock-128.png"
+        "128": "dist/img/lock-128.png"
     },
     "browser_action": {
-        "default_icon":  "dist/lock-128.png",
+        "default_icon":  "dist/img/lock-128.png",
         "default_title": "login with Deadbolt",
         "default_popup": "popup.html"
     },
