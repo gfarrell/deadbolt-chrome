@@ -10,5 +10,6 @@
         "default_icon": "dist/lock-128.png",
         "default_title": "Deadbolt"
     },
-    "permissions": ["activeTab"]
+
+    "permissions": ["activeTab", "cookies"]
 }
