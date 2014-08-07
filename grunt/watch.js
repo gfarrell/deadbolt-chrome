@@ -7,7 +7,7 @@ module.exports = {
     },
     styles: {
         files: ['less/*.less', 'less/**/*.less'],
-        tasks: ['less:dev', 'autoprefixer:dev']
+        tasks: ['less:dev']
     },
     scripts: {
         files: ['js/*.js', 'js/**/*.js']

@@ -4,7 +4,7 @@ module.exports = {
     // https://github.com/gruntjs/grunt-contrib-copy
     main: {
         files: [
-            {expand: true, flatten: true, src: ['img/**'], dest: 'dist/', filter: 'isFile'},
+            {expand: true, flatten: false, src: ['img/**'], dest: 'dist/', filter: 'isFile'},
         ]
     },
     dist: {
