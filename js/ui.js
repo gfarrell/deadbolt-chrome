@@ -3,9 +3,6 @@ define(['zepto'], function($) {
         updateAction: function(action) {
             $('.action').html(action);
         },
-        changeUserName: function(user) {
-            $('.user').html(user);
-        },
         closePopup: function() {
             window.close();
         },
