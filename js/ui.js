@@ -8,6 +8,10 @@ define(['zepto'], function($) {
         },
         changeService: function(service) {
             $('img.service_image').attr('src', 'dist/img/services/' + service + '.png');
+        },
+        setError: function(message) {
+            UI.updateAction('');
+            $('.errors').html(message);
         }
     };
 
