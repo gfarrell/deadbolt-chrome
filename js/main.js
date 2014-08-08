@@ -3,7 +3,8 @@ require.config({
     paths: {
         zepto: '../lib/zepto/zepto',
         config: '../config',
-        lodash: '../lib/lodash/dist/lodash'
+        lodash: '../lib/lodash/dist/lodash',
+        enum: '../lib/enum.js/enum'
     },
     shim: {
         zepto: {
@@ -12,68 +13,37 @@ require.config({
     }
 });
 
-require(['zepto', 'ui'], function($, UI) {
-    var submitAddress = 'https://localhost:8081/requestLogin';
-    var service = 'facebook';
+require(['zepto', 'app', 'service', 'cookie'], function($, App, Service, Cookie) {
+    var server = 'https://localhost:8081/requestLogin';
 
-    UI.updateAction('logging in');
-    UI.changeService('facebook');
+    App.setState(App.state.LOAD);
 
-    var translateCookie = function(cookie) {
-        var cookie_map = {
-            url: 'url',
-            domain: 'domain',
-            expiry: 'expirationDate',
-            httponly: 'httpOnly',
-            name: 'name',
-            path: 'path',
-            secure: 'secure',
-            value: 'value'
-        };
+    Service.getCurrent(function(s) {
+        // inform the user that we're logging in
+        App.setState(App.state.LOGIN, s.get('name'));
 
-        cookie.url = cookie.domain;
+        // initiate the login process
+        $.ajax({
+            url:      server,
+            type:    'POST',
+            data:    {
+                service: s.get('name')
+            },
+            success: function(data) {
+                if(data.error) {
+                    App.setState(App.state.ERROR, 'unable to login.');
+                } else {
+                    console.log(data);
+                    var cookies = Cookie.collectionFromJSON(data.cookies);
+                    Cookie.saveCollection(cookies);
+                    App.navigate(s.get('redirect'));
 
-        if(cookie.url.indexOf('.') === 0) {
-            cookie.url = cookie.url.substr(1);
-        }
-
-        cookie.url = 'https://' + cookie.url;
-
-        var mapped = {};
-        for(var key in cookie) {
-            if(key in cookie_map) {
-                mapped[cookie_map[key]] = cookie[key];
-            }
-        }
-
-        return mapped;
-    };
-
-
-    $.ajax({
-        url: submitAddress,
-        data: {service: service},
-        type: 'POST',
-        success: function(data) {
-            if(data.error) {
-                UI.setError('unable to login...');
-            } else {
-                var cookies = JSON.parse(data.cookies);
-                for(var name in cookies) {
-                    chrome.cookies.set(translateCookie(cookies[name]));
-                    UI.updateAction('logged in!');
+                    App.close(1500);
                 }
-                chrome.tabs.query({active: true}, function(tab) {
-                    chrome.tabs.reload(tab.id);
-                });
-
-                window.setTimeout(function() {
-                    UI.closePopup();
-                }, 1500);
+            },
+            error: function() {
+                App.setState(App.state.ERROR, 'unable to communicate with server.');
             }
-        },
-        error: function() {
-            UI.setError('unable to communicate with server...');
-        }
+        });
     });
 });
