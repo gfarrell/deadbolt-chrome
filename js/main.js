@@ -2,7 +2,8 @@ require.config({
     baseUrl: '/js',
     paths: {
         zepto: '../lib/zepto/zepto',
-        uuid: '../lib/uuid-js/lib/uuid'
+        config: '../config',
+        lodash: '../lib/lodash/dist/lodash'
     },
     shim: {
         zepto: {
