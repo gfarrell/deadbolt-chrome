@@ -1,7 +1,17 @@
-define(['app', 'config/services'], function(App, services) {
+define(['lodash', 'app', 'config/services'], function(_, App, services) {
     var Service = function(config) {
         this.config = config;
     };
+
+    _.extend(Service.prototype, {
+        get: function(key) {
+            if(_.has(this.config, key)) {
+                return this.config[key];
+            } else {
+                return null;
+            }
+        }
+    });
 
     var module = {
         Service: Service,
@@ -43,16 +53,16 @@ define(['app', 'config/services'], function(App, services) {
 
         detect: function(callback) {
             App.getCurrentURL(function(url) {
-                var config = Service.getConfigForURL(url);
+                var config = module.getConfigForURL(url);
                 callback(new Service(config));
             });
         },
-        
+
         getCurrent: function(callback) {
-            if(_.has(module, currentService)) {
+            if(_.has(module, 'currentService')) {
                 callback(module.currentService);
             } else {
-                Service.detect(function(s) {
+                module.detect(function(s) {
                     module.currentService = s;
                     callback(s);
                 });
