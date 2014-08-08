@@ -58,7 +58,11 @@ define(['lodash'], function(_) {
         },
         saveCollection: function(collection) {
             collection.forEach(function(cookie) {
-                cookie.save();
+                if(cookie instanceOf Cookie) {
+                    cookie.save();
+                } else {
+                    throw new Error('This is not a Cookie collection, cannot save it!');
+                }
             });
         }
     };
