@@ -7,6 +7,18 @@ define(['lodash'], function(_) {
 
     var Cookie = function(props) {
         this.props = props;
+
+        if(this.props.domain) {
+            this.props.url = this.props.domain;
+            if(this.props.url.indexOf('.') === 0) {
+                this.props.url = this.props.url.substr(1);
+            }
+            this.props.url = 'https://' + this.props.url;
+        }
+
+        console.group('Cookie ' + this.props.name);
+        console.log(this.props);
+        console.groupEnd();
     };
 
     _.extend(Cookie.prototype, {
@@ -23,14 +35,6 @@ define(['lodash'], function(_) {
                 out[nKey] = this.props[key];
             }
 
-            out.url = out.domain;
-
-            if(out.url.indexOf('.') === 0) {
-                out.url = out.url.substr(1);
-            }
-
-            out.url = 'https://' + out.url;
-
             return out;
         },
         save: function() {
@@ -43,22 +47,20 @@ define(['lodash'], function(_) {
             return new Cookie(props);
         },
         collectionFromJSON: function(data) {
-            var data = JSON.parse(data);
             var cookies = [];
 
-            if(!_.isArray(data)) {
-                data = [data];
-            }
+            data = JSON.parse(data);
 
-            data.forEach(function(datum) {
+            for(var name in data) {
+                var datum = data[name];
                 cookies.push(new Cookie(datum));
-            });
+            }
 
             return cookies;
         },
         saveCollection: function(collection) {
             collection.forEach(function(cookie) {
-                if(cookie instanceOf Cookie) {
+                if(cookie instanceof Cookie) {
                     cookie.save();
                 } else {
                     throw new Error('This is not a Cookie collection, cannot save it!');
