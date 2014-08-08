@@ -1,7 +1,7 @@
 define(['zepto'], function($) {
     var UI = {
         updateAction: function(action) {
-            $('.action').html(action);
+            $('.status').html(action);
         },
         closePopup: function() {
             window.close();

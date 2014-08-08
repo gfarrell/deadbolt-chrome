@@ -1,6 +1,6 @@
 {
   "name": "Deadbolt",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "authors": [
     "Gideon Farrell <me@gideonfarrell.co.uk>"
   ],
@@ -9,6 +9,8 @@
   "private": true,
   "dependencies": {
     "zepto": "~1.1.4",
-    "requirejs": "~2.1.14"
+    "requirejs": "~2.1.14",
+    "lodash": "~2.4.1",
+    "enum.js": "~0.1.0"
   }
 }

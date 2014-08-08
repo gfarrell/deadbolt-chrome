@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Deadbolt",
     "description": "Easy and secure access management for online services.",
-    "version": "0.0.1",
+    "version": "0.0.5",
     "icons": {
         "128": "dist/img/lock-128.png"
     },

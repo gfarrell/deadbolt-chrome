@@ -11,6 +11,10 @@ div.row {
     img {
         max-width: 100%;
     }
+
+    &:empty {
+        display: none;
+    }
 }
 
 div.status {
@@ -26,8 +30,4 @@ div.service_image {
 .errors {
     background-color: red;
     padding: 1em;
-
-    &:empty {
-        display: none;
-    }
 }
