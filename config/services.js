@@ -1,5 +1,6 @@
 define({
     'facebook': {
-        'urls': [/(.+\.)?facebook\.com/]
+        'urls': [/(.+\.)?facebook\.com/],
+        'redirect': 'https://www.facebook.com'
     }
 });
